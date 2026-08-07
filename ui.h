@@ -20,7 +20,6 @@ extern "C" {
 
 #include "screens/ui_Loading.h"
 #include "screens/ui_Tela_Principal.h"
-#include "screens/ui_Tela_Principal1.h"
 
 ///////////////////// VARIABLES ////////////////////
 
@@ -35,10 +34,6 @@ extern lv_obj_t * ui____initial_actions0;
 LV_IMG_DECLARE(ui_img_fundo_png);    // assets/Fundo.png
 LV_IMG_DECLARE(ui_img_logo_sea_doo_png);    // assets/Logo Sea Doo.png
 LV_IMG_DECLARE(ui_img_913638935);    // assets/1466c14d-730e-4a4e-b7df-74b5e7155165.png
-LV_IMG_DECLARE(ui_img_2038326595);    // assets/Sem título.png
-LV_IMG_DECLARE(ui_img_slider_battery2_png);    // assets/slider_battery2.png
-LV_IMG_DECLARE(ui_img_gas_png);    // assets/gas.png
-LV_IMG_DECLARE(ui_img_rpm_png);    // assets/RPM.png
 
 // FONTS
 LV_FONT_DECLARE(ui_font_Medium);

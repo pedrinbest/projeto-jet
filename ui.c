@@ -84,7 +84,6 @@ void ui_init(void)
     lv_disp_set_theme(dispp, theme);
     ui_Loading_screen_init();
     ui_Tela_Principal_screen_init();
-    ui_Tela_Principal1_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_obj_add_event_cb(ui____initial_actions0, ui_event____initial_actions0, LV_EVENT_ALL, NULL);
 
@@ -96,5 +95,4 @@ void ui_destroy(void)
 {
     ui_Loading_screen_destroy();
     ui_Tela_Principal_screen_destroy();
-    ui_Tela_Principal1_screen_destroy();
 }

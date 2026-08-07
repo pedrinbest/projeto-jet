@@ -1,30 +1,27 @@
+add_library(ui STATIC
+    ui.c
+    ui_helpers.c
 
-cmake_minimum_required(VERSION 3.16)
-project(jetski_dashboard C)
+    screens/ui_Loading.c
+    screens/ui_Tela_Principal.c
 
-set(CMAKE_C_STANDARD 99)
+    components/ui_comp_hook.c
 
-# LVGL
-add_subdirectory(lvgl)
+    images/ui_img_fundo_png.c
+    images/ui_img_logo_sea_doo_png.c
+    images/ui_img_2038326595.c
+    images/ui_img_slider_battery2_png.c
+    images/ui_img_gas_png.c
+    images/ui_img_rpm_png.c
 
-# UI exportada pelo SquareLine
-add_subdirectory(projeto-jet)
-
-# Executável principal
-add_executable(jetski-dashboard
-    src/main.c
+    fonts/ui_font_Medium.c
+    fonts/ui_font_Number.c
 )
 
-target_include_directories(jetski-dashboard PRIVATE
-    lvgl
-    lvgl/src
-    lvgl/src/drivers/display/fb
-    projeto-jet
+target_include_directories(ui PUBLIC
+    .
+    ${CMAKE_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/lvgl
 )
 
-target_link_libraries(jetski-dashboard PRIVATE
-    lvgl
-    ui
-    m
-)
 
