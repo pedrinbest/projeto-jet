@@ -1,10 +1,12 @@
 screens/ui_Loading.c
 screens/ui_Tela_Principal.c
+screens/ui_Tela_Principal1.c
 ui.c
 components/ui_comp_hook.c
 ui_helpers.c
 images/ui_img_fundo_png.c
 images/ui_img_logo_sea_doo_png.c
+images/ui_img_913638935.c
 images/ui_img_2038326595.c
 images/ui_img_slider_battery2_png.c
 images/ui_img_gas_png.c

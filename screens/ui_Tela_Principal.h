@@ -14,20 +14,7 @@ extern "C" {
 extern void ui_Tela_Principal_screen_init(void);
 extern void ui_Tela_Principal_screen_destroy(void);
 extern lv_obj_t * ui_Tela_Principal;
-extern lv_obj_t * ui_Image1;
-extern lv_obj_t * ui_Temperatura;
-extern lv_obj_t * ui_Gas;
-extern lv_obj_t * ui_RPM;
-extern lv_obj_t * ui_RPMBar;
-extern void ui_event_Slider3(lv_event_t * e);
-extern lv_obj_t * ui_Slider3;
-extern lv_obj_t * ui_Km1;
-extern lv_obj_t * ui_Km2;
-extern void ui_event_SliderKmSimulacao(lv_event_t * e);
-extern lv_obj_t * ui_SliderKmSimulacao;
-extern lv_obj_t * ui_kmh;
-extern lv_obj_t * ui_Bateria;
-extern lv_obj_t * ui_Hora;
+extern lv_obj_t * ui_Image3;
 // CUSTOM VARIABLES
 
 #ifdef __cplusplus

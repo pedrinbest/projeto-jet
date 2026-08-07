@@ -6,38 +6,8 @@
 #include "../ui.h"
 
 lv_obj_t * ui_Tela_Principal = NULL;
-lv_obj_t * ui_Image1 = NULL;
-lv_obj_t * ui_Temperatura = NULL;
-lv_obj_t * ui_Gas = NULL;
-lv_obj_t * ui_RPM = NULL;
-lv_obj_t * ui_RPMBar = NULL;
-lv_obj_t * ui_Slider3 = NULL;
-lv_obj_t * ui_Km1 = NULL;
-lv_obj_t * ui_Km2 = NULL;
-lv_obj_t * ui_SliderKmSimulacao = NULL;
-lv_obj_t * ui_kmh = NULL;
-lv_obj_t * ui_Bateria = NULL;
-lv_obj_t * ui_Hora = NULL;
+lv_obj_t * ui_Image3 = NULL;
 // event funtions
-void ui_event_Slider3(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-
-    if(event_code == LV_EVENT_VALUE_CHANGED) {
-        _ui_bar_increment(ui_RPMBar, 1, LV_ANIM_ON);
-    }
-}
-
-void ui_event_SliderKmSimulacao(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target_obj(e);
-
-    if(event_code == LV_EVENT_VALUE_CHANGED) {
-        _ui_slider_set_text_value(ui_Km1, target, "", "");
-        _ui_slider_set_text_value(ui_Km2, target, "", "");
-    }
-}
 
 // build funtions
 
@@ -46,191 +16,14 @@ void ui_Tela_Principal_screen_init(void)
     ui_Tela_Principal = lv_obj_create(NULL);
     lv_obj_remove_flag(ui_Tela_Principal, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Image1 = lv_image_create(ui_Tela_Principal);
-    lv_image_set_src(ui_Image1, &ui_img_2038326595);
-    lv_obj_set_width(ui_Image1, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_Image1, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_Image1, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_Image1, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_remove_flag(ui_Image1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_image_set_scale(ui_Image1, 165);
-
-    ui_Temperatura = lv_slider_create(ui_Tela_Principal);
-    lv_slider_set_value(ui_Temperatura, 0, LV_ANIM_OFF);
-    if(lv_slider_get_mode(ui_Temperatura) == LV_SLIDER_MODE_RANGE) lv_slider_set_start_value(ui_Temperatura, 0,
-                                                                                                 LV_ANIM_OFF);
-    lv_obj_set_width(ui_Temperatura, lv_pct(21));
-    lv_obj_set_height(ui_Temperatura, lv_pct(79));
-    lv_obj_set_x(ui_Temperatura, 377);
-    lv_obj_set_y(ui_Temperatura, 73);
-    lv_obj_set_align(ui_Temperatura, LV_ALIGN_CENTER);
-    lv_obj_set_style_bg_color(ui_Temperatura, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_Temperatura, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    lv_obj_set_style_bg_color(ui_Temperatura, lv_color_hex(0xFFFFFF), LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_Temperatura, 0, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_image_src(ui_Temperatura, &ui_img_slider_battery2_png, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_image_opa(ui_Temperatura, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-
-    lv_obj_set_style_bg_color(ui_Temperatura, lv_color_hex(0xFFFFFF), LV_PART_KNOB | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_Temperatura, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
-
-    //Compensating for LVGL9.1 draw crash with bar/slider max value when top-padding is nonzero and right-padding is 0
-    if(lv_obj_get_style_pad_top(ui_Temperatura, LV_PART_MAIN) > 0) lv_obj_set_style_pad_right(ui_Temperatura,
-                                                                                                  lv_obj_get_style_pad_right(ui_Temperatura, LV_PART_MAIN) + 1, LV_PART_MAIN);
-    ui_Gas = lv_slider_create(ui_Tela_Principal);
-    lv_slider_set_value(ui_Gas, 100, LV_ANIM_OFF);
-    if(lv_slider_get_mode(ui_Gas) == LV_SLIDER_MODE_RANGE) lv_slider_set_start_value(ui_Gas, 0, LV_ANIM_OFF);
-    lv_obj_set_width(ui_Gas, lv_pct(21));
-    lv_obj_set_height(ui_Gas, lv_pct(79));
-    lv_obj_set_x(ui_Gas, -388);
-    lv_obj_set_y(ui_Gas, 74);
-    lv_obj_set_align(ui_Gas, LV_ALIGN_CENTER);
-    lv_obj_set_style_bg_color(ui_Gas, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_Gas, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    lv_obj_set_style_bg_color(ui_Gas, lv_color_hex(0xFFFFFF), LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_Gas, 0, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_image_src(ui_Gas, &ui_img_gas_png, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_image_opa(ui_Gas, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-
-    lv_obj_set_style_bg_color(ui_Gas, lv_color_hex(0xFFFFFF), LV_PART_KNOB | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_Gas, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
-
-    //Compensating for LVGL9.1 draw crash with bar/slider max value when top-padding is nonzero and right-padding is 0
-    if(lv_obj_get_style_pad_top(ui_Gas, LV_PART_MAIN) > 0) lv_obj_set_style_pad_right(ui_Gas,
-                                                                                          lv_obj_get_style_pad_right(ui_Gas, LV_PART_MAIN) + 1, LV_PART_MAIN);
-    ui_RPM = lv_slider_create(ui_Tela_Principal);
-    lv_slider_set_value(ui_RPM, 100, LV_ANIM_OFF);
-    if(lv_slider_get_mode(ui_RPM) == LV_SLIDER_MODE_RANGE) lv_slider_set_start_value(ui_RPM, 0, LV_ANIM_OFF);
-    lv_obj_set_width(ui_RPM, lv_pct(91));
-    lv_obj_set_height(ui_RPM, lv_pct(9));
-    lv_obj_set_x(ui_RPM, -4);
-    lv_obj_set_y(ui_RPM, -223);
-    lv_obj_set_align(ui_RPM, LV_ALIGN_CENTER);
-    lv_obj_set_style_bg_color(ui_RPM, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_RPM, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_grad_dir(ui_RPM, LV_GRAD_DIR_NONE, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    lv_obj_set_style_bg_color(ui_RPM, lv_color_hex(0xFFFFFF), LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_RPM, 0, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_image_src(ui_RPM, &ui_img_rpm_png, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_image_opa(ui_RPM, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-
-    lv_obj_set_style_bg_color(ui_RPM, lv_color_hex(0xFFFFFF), LV_PART_KNOB | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_RPM, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
-
-    //Compensating for LVGL9.1 draw crash with bar/slider max value when top-padding is nonzero and right-padding is 0
-    if(lv_obj_get_style_pad_top(ui_RPM, LV_PART_MAIN) > 0) lv_obj_set_style_pad_right(ui_RPM,
-                                                                                          lv_obj_get_style_pad_right(ui_RPM, LV_PART_MAIN) + 1, LV_PART_MAIN);
-    ui_RPMBar = lv_bar_create(ui_Tela_Principal);
-    lv_bar_set_value(ui_RPMBar, 25, LV_ANIM_OFF);
-    lv_bar_set_start_value(ui_RPMBar, 0, LV_ANIM_OFF);
-    lv_obj_set_width(ui_RPMBar, 748);
-    lv_obj_set_height(ui_RPMBar, 187);
-    lv_obj_set_x(ui_RPMBar, -7);
-    lv_obj_set_y(ui_RPMBar, -136);
-    lv_obj_set_align(ui_RPMBar, LV_ALIGN_CENTER);
-    lv_obj_set_style_bg_color(ui_RPMBar, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_RPMBar, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    lv_obj_set_style_bg_color(ui_RPMBar, lv_color_hex(0xFFFFFF), LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_RPMBar, 0, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_image_src(ui_RPMBar, &ui_img_rpm_png, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-
-    //Compensating for LVGL9.1 draw crash with bar/slider max value when top-padding is nonzero and right-padding is 0
-    if(lv_obj_get_style_pad_top(ui_RPMBar, LV_PART_MAIN) > 0) lv_obj_set_style_pad_right(ui_RPMBar,
-                                                                                             lv_obj_get_style_pad_right(ui_RPMBar, LV_PART_MAIN) + 1, LV_PART_MAIN);
-    ui_Slider3 = lv_slider_create(ui_Tela_Principal);
-    lv_slider_set_value(ui_Slider3, 0, LV_ANIM_OFF);
-    if(lv_slider_get_mode(ui_Slider3) == LV_SLIDER_MODE_RANGE) lv_slider_set_start_value(ui_Slider3, 0, LV_ANIM_OFF);
-    lv_obj_set_width(ui_Slider3, 141);
-    lv_obj_set_height(ui_Slider3, 10);
-    lv_obj_set_x(ui_Slider3, -215);
-    lv_obj_set_y(ui_Slider3, 132);
-    lv_obj_set_align(ui_Slider3, LV_ALIGN_CENTER);
-
-    //Compensating for LVGL9.1 draw crash with bar/slider max value when top-padding is nonzero and right-padding is 0
-    if(lv_obj_get_style_pad_top(ui_Slider3, LV_PART_MAIN) > 0) lv_obj_set_style_pad_right(ui_Slider3,
-                                                                                              lv_obj_get_style_pad_right(ui_Slider3, LV_PART_MAIN) + 1, LV_PART_MAIN);
-    ui_Km1 = lv_label_create(ui_Tela_Principal);
-    lv_obj_set_width(ui_Km1, 319);
-    lv_obj_set_height(ui_Km1, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Km1, -90);
-    lv_obj_set_y(ui_Km1, 13);
-    lv_obj_set_align(ui_Km1, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Km1, "0");
-    lv_obj_set_style_text_color(ui_Km1, lv_color_hex(0x57F0ED), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_Km1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_align(ui_Km1, LV_TEXT_ALIGN_RIGHT, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_decor(ui_Km1, LV_TEXT_DECOR_NONE, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Km1, &ui_font_Number, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_Km2 = lv_label_create(ui_Tela_Principal);
-    lv_obj_set_width(ui_Km2, 341);
-    lv_obj_set_height(ui_Km2, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Km2, -110);
-    lv_obj_set_y(ui_Km2, 13);
-    lv_obj_set_align(ui_Km2, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Km2, "0");
-    lv_obj_set_style_text_color(ui_Km2, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_Km2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_align(ui_Km2, LV_TEXT_ALIGN_RIGHT, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_decor(ui_Km2, LV_TEXT_DECOR_NONE, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Km2, &ui_font_Number, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_SliderKmSimulacao = lv_slider_create(ui_Tela_Principal);
-    lv_slider_set_range(ui_SliderKmSimulacao, 0, 250);
-    lv_slider_set_value(ui_SliderKmSimulacao, 0, LV_ANIM_OFF);
-    if(lv_slider_get_mode(ui_SliderKmSimulacao) == LV_SLIDER_MODE_RANGE) lv_slider_set_start_value(ui_SliderKmSimulacao, 0,
-                                                                                                       LV_ANIM_OFF);
-    lv_obj_set_width(ui_SliderKmSimulacao, 150);
-    lv_obj_set_height(ui_SliderKmSimulacao, 10);
-    lv_obj_set_x(ui_SliderKmSimulacao, 155);
-    lv_obj_set_y(ui_SliderKmSimulacao, 129);
-    lv_obj_set_align(ui_SliderKmSimulacao, LV_ALIGN_CENTER);
-
-    //Compensating for LVGL9.1 draw crash with bar/slider max value when top-padding is nonzero and right-padding is 0
-    if(lv_obj_get_style_pad_top(ui_SliderKmSimulacao, LV_PART_MAIN) > 0) lv_obj_set_style_pad_right(ui_SliderKmSimulacao,
-                                                                                                        lv_obj_get_style_pad_right(ui_SliderKmSimulacao, LV_PART_MAIN) + 1, LV_PART_MAIN);
-    ui_kmh = lv_label_create(ui_Tela_Principal);
-    lv_obj_set_width(ui_kmh, 224);
-    lv_obj_set_height(ui_kmh, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_kmh, 110);
-    lv_obj_set_y(ui_kmh, 69);
-    lv_obj_set_align(ui_kmh, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_kmh, "km/h");
-    lv_obj_set_style_text_color(ui_kmh, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_kmh, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_align(ui_kmh, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_kmh, &ui_font_Medium, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_Bateria = lv_label_create(ui_Tela_Principal);
-    lv_obj_set_width(ui_Bateria, 224);
-    lv_obj_set_height(ui_Bateria, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Bateria, -354);
-    lv_obj_set_y(ui_Bateria, -229);
-    lv_obj_set_align(ui_Bateria, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Bateria, "12.6V");
-    lv_obj_set_style_text_color(ui_Bateria, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_Bateria, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_align(ui_Bateria, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Bateria, &ui_font_Medium, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_Hora = lv_label_create(ui_Tela_Principal);
-    lv_obj_set_width(ui_Hora, 224);
-    lv_obj_set_height(ui_Hora, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Hora, 337);
-    lv_obj_set_y(ui_Hora, -229);
-    lv_obj_set_align(ui_Hora, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Hora, "12:45");
-    lv_obj_set_style_text_color(ui_Hora, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_Hora, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_align(ui_Hora, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Hora, &ui_font_Medium, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    lv_obj_add_event_cb(ui_Slider3, ui_event_Slider3, LV_EVENT_ALL, NULL);
-    lv_obj_add_event_cb(ui_SliderKmSimulacao, ui_event_SliderKmSimulacao, LV_EVENT_ALL, NULL);
+    ui_Image3 = lv_image_create(ui_Tela_Principal);
+    lv_image_set_src(ui_Image3, &ui_img_913638935);
+    lv_obj_set_width(ui_Image3, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_Image3, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_Image3, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_Image3, LV_OBJ_FLAG_CLICKABLE);     /// Flags
+    lv_obj_remove_flag(ui_Image3, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_image_set_scale(ui_Image3, 159);
 
 }
 
@@ -240,17 +33,6 @@ void ui_Tela_Principal_screen_destroy(void)
 
     // NULL screen variables
     ui_Tela_Principal = NULL;
-    ui_Image1 = NULL;
-    ui_Temperatura = NULL;
-    ui_Gas = NULL;
-    ui_RPM = NULL;
-    ui_RPMBar = NULL;
-    ui_Slider3 = NULL;
-    ui_Km1 = NULL;
-    ui_Km2 = NULL;
-    ui_SliderKmSimulacao = NULL;
-    ui_kmh = NULL;
-    ui_Bateria = NULL;
-    ui_Hora = NULL;
+    ui_Image3 = NULL;
 
 }
